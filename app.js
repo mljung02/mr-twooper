@@ -43,24 +43,50 @@ var client = new Twitter({
 var TWITTER_SEARCH_TERMS = JSON.parse(fs.readFileSync(searchJSONPath,'utf8')).searchTerms.join(',')
 
 
+Array.prototype.remove = function() {
+    var what, a = arguments, L = a.length, ax;
+    while (L && this.length) {
+        what = a[--L];
+        while ((ax = this.indexOf(what)) !== -1) {
+            this.splice(ax, 1);
+        }
+    }
+    return this;
+};
+
 //I am not sure how to move this out of the app level and into our routes
 //this is where 
 var indexio = io.of('/index');
 indexio.on('connection', function (socket) {
   socket.emit('wired', 'wired')
-  socket.on('startTracking', function (searchString) {
-    //searchString for later
+  var searchString = TWITTER_SEARCH_TERMS
+  socket.on('startTracking', function () {
+    
     var startTime = Math.round(new Date().getTime()/1000.0)
 
-    searchString = TWITTER_SEARCH_TERMS
     client.stream('statuses/filter', {track: searchString}, function(stream) {
+
       console.log('stream initiate',searchString)
-      var i = 0
+
+      socket.on('addCategory', function (category) {
+        stream.destroy()
+        console.log('add category')
+        searchString += ',' + category
+        console.log(searchString)
+      });
+      
+      socket.on('deleteCategory', function (category) {
+        stream.destroy()
+        console.log('deleteCategory')
+        searchString = searchString.split(',').remove(category).join(',')
+        console.log('new searchstring ', searchString)
+      })
+      
       stream.on('data', function(tweet) {
         socket.emit('tweet', tweet)
         console.log(tweet.text);
         //timer
-        var timer = 30
+        var timer = 300
         if (startTime + timer < Math.round(new Date().getTime()/1000.0)) {
           console.log('times up')
           stream.destroy()
@@ -70,11 +96,11 @@ indexio.on('connection', function (socket) {
         throw error;
       });
     });
+    socket.on('disconnect', function () {
+      console.log('disconnect hit')
+      socket.emit('wired', 'this should never appear on the client')
+    });
   })
-  socket.on('disconnect', function () {
-    console.log('disconnect hit')
-    socket.emit('wired', 'this should never appear on the client')
-  });
 })
 
 
