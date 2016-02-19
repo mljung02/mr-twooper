@@ -52,19 +52,26 @@
 
 	const React = __webpack_require__(2);
 	const ReactDOM = __webpack_require__(159);
+	const Filter = __webpack_require__(160);
+	const Feed = __webpack_require__(161);
 	
 	const App = React.createClass({
 	    render() {
 	        return React.createElement(
-	            'h2',
-	            null,
-	            'Hello world'
+	            'div',
+	            { className: 'container' },
+	            React.createElement(
+	                'div',
+	                { className: 'row' },
+	                React.createElement(Feed, null),
+	                React.createElement(Filter, null)
+	            )
 	        );
 	    }
 	
 	});
 	
-	ReactDOM.render(React.createElement(App, null), document.getElementById('world'));
+	ReactDOM.render(React.createElement(App, null), document.getElementById('main'));
 
 /***/ },
 /* 2 */
@@ -19683,6 +19690,63 @@
 	'use strict';
 	
 	module.exports = __webpack_require__(4);
+
+/***/ },
+/* 160 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const React = __webpack_require__(2);
+	const ReactDOM = __webpack_require__(159);
+	
+	const Filter = React.createClass({
+	
+	    addPill() {
+	        var newPills = this.state.pills;
+	        newPills.push({ name: 'I am a new pill' });
+	        this.setState({ pills: newPills });
+	    },
+	
+	    pills() {
+	        return this.state.pills.map(pill => React.createElement(
+	            'div',
+	            { className: 'pill' },
+	            pill.name
+	        ));
+	    },
+	
+	    render() {
+	        this.state = this.state == null ? { pills: [] } : this.state;
+	        return React.createElement(
+	            'div',
+	            { className: 'col-md-3', onClick: this.addPill },
+	            'filters, click me',
+	            this.pills()
+	        );
+	    }
+	
+	});
+	
+	module.exports = Filter;
+
+/***/ },
+/* 161 */
+/***/ function(module, exports, __webpack_require__) {
+
+	const React = __webpack_require__(2);
+	const ReactDOM = __webpack_require__(159);
+	
+	const Feed = React.createClass({
+	    render() {
+	        return React.createElement(
+	            'div',
+	            { className: 'col-md-9' },
+	            'feeds'
+	        );
+	    }
+	
+	});
+	
+	module.exports = Feed;
 
 /***/ }
 /******/ ]);
