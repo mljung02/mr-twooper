@@ -4,11 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var socketio = require('socket.io');
+var Twitter = require('twitter');
+
+require('dotenv').load();
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
 var app = express();
+
+var io = socketio();
+app.io = io;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,6 +32,30 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+var client = new Twitter({
+  consumer_key: process.env.TWITTER_CONSUMER_KEY,
+  consumer_secret: process.env.TWITTER_CONSUMER_SECRET,
+  access_token_key: process.env.TWITTER_ACCESS_TOKEN_KEY,
+  access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
+});
+
+
+var indexio = io.of('/index');
+
+
+indexio.on('connection', function (socket) {
+  console.log('connection')
+  client.stream('statuses/filter', {track: 'minnesota'}, function(stream) {
+    console.log('stream initiated')
+    stream.on('data', function(tweet) {
+      indexio.emit('tweet', tweet.text)
+      console.log(tweet.text);
+    });
+    stream.on('error', function(error) {
+      throw error;
+    });
+  });
+})
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
