@@ -41,7 +41,14 @@ const Filter = React.createClass({
     },
 
     render(){
-        this.state = this.state == null ? { pills: [] } : this.state;
+        this.state = this.state == null ? { pills: [
+          {category: "mortgage"},
+          {category: "rocket mortgage"},
+          {category: "quicken loans"},
+          {category: "nationstar"},
+          {category: "refinance"},
+          {category: "mr. cooper"}
+        ]  } : this.state;
         return (<div className="col-md-3">
           <div>
             <input type="text" className='text-input' value={this.state.category} onChange={this.storeCategory}/><button type="button" onClick={this.addPill}>Add Category</button>
