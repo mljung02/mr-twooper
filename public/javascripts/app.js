@@ -13,7 +13,7 @@ socket.on('wired', function (str) {
 
 $('#start').click(function () {
   console.log('start button')
-  socket.emit('startTracking', '')
+  socket.emit('startTracking')
 })
 
 function disconnectFromSocket(){

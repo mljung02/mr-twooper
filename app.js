@@ -55,8 +55,9 @@ indexio.on('connection', function (socket) {
     searchString = TWITTER_SEARCH_TERMS
     client.stream('statuses/filter', {track: searchString}, function(stream) {
       console.log('stream initiate',searchString)
+      var i = 0
       stream.on('data', function(tweet) {
-        indexio.emit('tweet', tweet.text)
+        socket.emit('tweet', tweet.text)
         console.log(tweet.text);
         //timer
         var timer = 30
