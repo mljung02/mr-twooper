@@ -57,7 +57,7 @@ indexio.on('connection', function (socket) {
       console.log('stream initiate',searchString)
       var i = 0
       stream.on('data', function(tweet) {
-        socket.emit('tweet', tweet.text)
+        socket.emit('tweet', tweet)
         console.log(tweet.text);
         //timer
         var timer = 30
