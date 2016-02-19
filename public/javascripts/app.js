@@ -1,4 +1,4 @@
-var TIMEOUT_IN_SECONDS = 60000
+var TIMEOUT_IN_SECONDS = 60
 
 var socket = io.connect('/index');
 console.log('appjs wired')
