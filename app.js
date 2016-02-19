@@ -48,7 +48,7 @@ indexio.on('connection', function (socket) {
   socket.on('startTracking', function (searchString) {
     //searchString for later
     var startTime = Math.round(new Date().getTime()/1000.0)
-    console.log('start!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
     searchString = 'Minnesota'
     client.stream('statuses/filter', {track: searchString}, function(stream) {
 
@@ -67,7 +67,14 @@ indexio.on('connection', function (socket) {
       });
     });
   })
+  socket.on('disconnect', function () {
+    console.log('disconnect hit')
+    socket.disconnect()
+    socket.emit('wired', 'this should never appear on the client')
+  });
 })
+
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
