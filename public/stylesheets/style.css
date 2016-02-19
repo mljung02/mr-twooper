@@ -8,7 +8,6 @@ a {
 }
 h1 {
     font-size: 40px;
-    color: #555;
     font-weight: normal;
 }
 .feed-container {
@@ -125,6 +124,16 @@ button{
 .pill span{
     vertical-align: top;
 }
+.retweet-div{
+    width: 10%;
+    display: inline-block;
+    font-size: 15px;
+    vertical-align: top;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #75CEEB;
+    border-radius: 5px;
+}
 .pill span:not(.close-pill)  {
     display: inline-block;
     width: 160px;
@@ -133,9 +142,11 @@ button{
     padding: 3px 6px;
     border-radius: 2px;
     border-right: 4px solid #75CEEB;
+    color: #777;
+    font-size: 17px;
 }
 #header{
-    color: #555;
+    color: #08779c;
     padding: 10px;
     border-bottom: 3px solid #f2f2f2;
 }

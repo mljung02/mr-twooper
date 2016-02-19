@@ -27,6 +27,11 @@ const FeedItem = React.createClass({
             <div className='feed-text-div'>
             {(this.props.tweet.text)}
             </div>
+            <div className='retweet-div'>
+                <a className='reply' target='_blank' href={'https://twitter.com/intent/tweet?button_hashtag=MrCooper&text=@' + handle} data-size='large' data-related='this_is_yR'>
+                    Reply
+                </a>
+            </div>
         </div>);
     }
 
