@@ -87,3 +87,8 @@ h1 {
 .desc.handle{
     font-weight: bold;
 }
+#header{
+    color: #555;
+    padding: 10px;
+    border-bottom: 3px solid #f2f2f2;
+}
