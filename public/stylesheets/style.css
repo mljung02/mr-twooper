@@ -1,21 +1,89 @@
 body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    padding: 50px;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 a {
-  color: #00B7FF;
+    color: #00B7FF;
 }
-
-.feed-container{
+h1 {
+    font-size: 40px;
+    color: #555;
+    font-weight: normal;
+}
+.feed-container {
+    margin-top: 15px;
     padding: 20px;
     border: 1px solid #e2e2e2;
-    font-family: serif;
     font-size: 22px;
+    border-radius: 3px;
 }
-.filter-container{
-  padding: 20px;
-  border: 1px solid #e2e2e2;
-  font-family: serif;
-  font-size: 22px;
+
+.filter-container {
+    margin-top: 15px;
+    padding: 20px;
+    font-size: 22px;
+    border-radius: 3px;
+}
+
+.feed-prof-img {
+    max-width: 100%;
+    max-height:100px;
+    border-radius: 3px;
+}
+.feed-prof-img-div {
+    max-width:10%;
+    width:10%;
+    display: inline-block;
+    vertical-align: top;
+    margin-right: 15px;
+}
+.tweet{
+    max-height: 150px;
+    padding: 5px;
+    border: 1px solid #f2f2f2;
+    margin-top:5px;
+}
+.feed-text-div{
+    display: inline-block;
+    max-width: 55%;
+    font-size: 16px;
+    color: #767676;
+}
+.feed-tool-bar{
+    display: block;
+}
+.start-btn {
+    padding: 7px 18px;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    border-radius: 2px;
+    cursor: pointer;
+    display: inline;
+    background: #08779c; /* Old browsers */
+    background: -moz-linear-gradient(left,  #08779c 0%, #5abbdb 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  #08779c 0%,#5abbdb 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  #08779c 0%,#5abbdb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#08779c', endColorstr='#5abbdb',GradientType=1 ); /* IE6-9 */
+}
+.feed-tool-bar {
+    display: block;
+    margin-bottom: 10px;
+    padding-bottom: 15px;
+    border-bottom: 3px solid #f2f2f2;
+}
+.user-desc {
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
+    overflow-x: hidden;
+    padding: 1px;
+}
+.user-desc .desc{
+    color: #767676;
+    font-size: 13px;
+}
+.desc.handle{
+    font-weight: bold;
 }

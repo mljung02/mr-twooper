@@ -7,8 +7,8 @@ const App = React.createClass({
     render(){
         return (<div className="container">
             <div className="row">
-                <Feed />
                 <Filter />
+                <Feed />
                 </div>
         </div>);
     }
