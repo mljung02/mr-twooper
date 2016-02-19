@@ -40,22 +40,35 @@ var client = new Twitter({
 });
 
 
+//I am not sure how to move this out of the app level and into our routes
+//this is where 
 var indexio = io.of('/index');
-
-
 indexio.on('connection', function (socket) {
-  console.log('connection')
-  client.stream('statuses/filter', {track: 'minnesota'}, function(stream) {
-    console.log('stream initiated')
-    stream.on('data', function(tweet) {
-      indexio.emit('tweet', tweet.text)
-      console.log(tweet.text);
+  socket.emit('wired', 'wired')
+  socket.on('startTracking', function (searchString) {
+    //searchString for later
+    var startTime = Math.round(new Date().getTime()/1000.0)
+    console.log('start!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    searchString = 'Minnesota'
+    client.stream('statuses/filter', {track: searchString}, function(stream) {
+
+      stream.on('data', function(tweet) {
+        indexio.emit('tweet', tweet.text)
+        console.log(tweet.text);
+        //timer
+        var timer = 20
+        if (startTime + timer < Math.round(new Date().getTime()/1000.0)) {
+          console.log('times up')
+          stream.destroy()
+        }
+      });
+      stream.on('error', function(error) {
+        throw error;
+      });
     });
-    stream.on('error', function(error) {
-      throw error;
-    });
-  });
+  })
 })
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
