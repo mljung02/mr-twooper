@@ -6,3 +6,16 @@ body {
 a {
   color: #00B7FF;
 }
+
+.feed-container{
+    padding: 20px;
+    border: 1px solid #e2e2e2;
+    font-family: serif;
+    font-size: 22px;
+}
+.filter-container{
+  padding: 20px;
+  border: 1px solid #e2e2e2;
+  font-family: serif;
+  font-size: 22px;
+}

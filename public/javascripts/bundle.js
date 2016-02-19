@@ -19718,7 +19718,7 @@
 	        this.state = this.state == null ? { pills: [] } : this.state;
 	        return React.createElement(
 	            'div',
-	            { className: 'col-md-3', onClick: this.addPill },
+	            { className: 'col-md-3 filter-container', onClick: this.addPill },
 	            'filters, click me',
 	            this.pills()
 	        );
@@ -19734,13 +19734,49 @@
 
 	const React = __webpack_require__(2);
 	const ReactDOM = __webpack_require__(159);
+	//const tconn                 = require('.tconn');
+	const TIMEOUT_IN_SECONDS = 30;
 	
 	const Feed = React.createClass({
+	
+	    establishConnection() {
+	        var self = this;
+	        socket.emit('startTracking');
+	        setTimeout(this.disconnectFromSocket, TIMEOUT_IN_SECONDS * 1000);
+	        socket.on('tweet', function (tweet) {
+	            console.log('tweet', tweet);
+	            var newFeeds = self.state.feeds;
+	            newFeeds.push(tweet);
+	            self.setState({ feeds: newFeeds });
+	        });
+	        socket.on('wired', function (str) {
+	            console.log(str, '!');
+	        });
+	    },
+	
+	    disconnectFromSocket() {
+	        console.log('disconnecting');
+	        socket.emit('disconnect');
+	        socket.disconnect();
+	    },
+	
+	    getFeeds() {
+	        return this.state.feeds.map(m => {
+	            return React.createElement(
+	                'div',
+	                null,
+	                m.text
+	            );
+	        });
+	    },
+	
 	    render() {
+	        this.state = this.state == null ? { feeds: [] } : this.state;
 	        return React.createElement(
 	            'div',
-	            { className: 'col-md-9' },
-	            'feeds'
+	            { className: 'col-md-9 feed-container' },
+	            React.createElement('input', { type: 'button', onClick: this.establishConnection, value: 'Click to Start' }),
+	            this.getFeeds()
 	        );
 	    }
 	
