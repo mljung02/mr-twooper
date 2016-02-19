@@ -1,4 +1,4 @@
-var TIMEOUT_IN_MILISECONDS = 60000
+var TIMEOUT_IN_SECONDS = 60000
 
 var socket = io.connect('/index');
 console.log('appjs wired')
@@ -17,8 +17,9 @@ $('#start').click(function () {
 })
 
 function disconnectFromSocket(){
-  console.log('disconnect!')
+  console.log('disconnecting')
   socket.emit('disconnect')
+  socket.disconnect()
 }
 
-setTimeout(disconnectFromSocket, TIMEOUT_IN_MILISECONDS)
+setTimeout(disconnectFromSocket, TIMEOUT_IN_SECONDS*1000)

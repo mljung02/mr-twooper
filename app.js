@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var socketio = require('socket.io');
 var Twitter = require('twitter');
-
+var fs = require('fs');
+var searchJSONPath = './assets/searchDefaults.json'
 require('dotenv').load();
 
 var routes = require('./routes/index');
@@ -39,6 +40,8 @@ var client = new Twitter({
   access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET
 });
 
+var TWITTER_SEARCH_TERMS = JSON.parse(fs.readFileSync(searchJSONPath,'utf8')).searchTerms.join(',')
+
 
 //I am not sure how to move this out of the app level and into our routes
 //this is where 
@@ -49,14 +52,14 @@ indexio.on('connection', function (socket) {
     //searchString for later
     var startTime = Math.round(new Date().getTime()/1000.0)
 
-    searchString = 'Minnesota'
+    searchString = TWITTER_SEARCH_TERMS
     client.stream('statuses/filter', {track: searchString}, function(stream) {
-
+      console.log('stream initiate',searchString)
       stream.on('data', function(tweet) {
         indexio.emit('tweet', tweet.text)
         console.log(tweet.text);
         //timer
-        var timer = 20
+        var timer = 30
         if (startTime + timer < Math.round(new Date().getTime()/1000.0)) {
           console.log('times up')
           stream.destroy()
@@ -69,7 +72,6 @@ indexio.on('connection', function (socket) {
   })
   socket.on('disconnect', function () {
     console.log('disconnect hit')
-    socket.disconnect()
     socket.emit('wired', 'this should never appear on the client')
   });
 })
