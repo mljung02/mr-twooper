@@ -49,7 +49,7 @@ const Filter = React.createClass({
           {category: "refinance"},
           {category: "mr. cooper"}
         ]  } : this.state;
-        return (<div className="col-md-3">
+        return (<div className="col-md-3 filter">
           <div>
             <input type="text" className='text-input' value={this.state.category} onChange={this.storeCategory}/><button type="button" onClick={this.addPill}>Add Category</button>
           </div>

@@ -80,12 +80,36 @@ h1 {
     overflow-x: hidden;
     padding: 1px;
 }
+button{
+    margin-left:5px;
+}
 .user-desc .desc{
     color: #767676;
     font-size: 13px;
 }
 .desc.handle{
     font-weight: bold;
+}
+.close-pill{
+    display: inline-block;
+    margin-left: 8px;
+    padding: 1px 6px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 1px solid #e2e2e2;
+}
+.filter input, button {
+    margin: 3px 5px;
+}
+.filter {
+    padding: 10px;
+}
+.pill {
+    width: 100%;
+    margin: 5px;
+    padding: 5px;
+    border: 1px solid #e2e2e2;
+    margin-top: 2px;
 }
 #header{
     color: #555;
