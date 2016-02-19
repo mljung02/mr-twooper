@@ -18,7 +18,7 @@ const Feed = React.createClass({
             socket.on('tweet', function(tweet){
                 console.log('tweet', tweet);
                 var newFeeds = self.state.feeds;
-                newFeeds.push(tweet);
+                newFeeds.unshift(tweet);
                 self.setState({ feeds: newFeeds });
             });
             socket.on('wired', function (str) {

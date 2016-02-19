@@ -60,7 +60,7 @@ h1 {
     color: white;
     border-radius: 2px;
     cursor: pointer;
-    display: inline;
+    display: inline-block;
     background: #08779c; /* Old browsers */
     background: -moz-linear-gradient(left,  #08779c 0%, #5abbdb 100%); /* FF3.6-15 */
     background: -webkit-linear-gradient(left,  #08779c 0%,#5abbdb 100%); /* Chrome10-25,Safari5.1-6 */
@@ -98,18 +98,41 @@ button{
     cursor: pointer;
     border: 1px solid #e2e2e2;
 }
-.filter input, button {
+.filter input  {
+    max-width:200px;
+    border-radius:2px;
     margin: 3px 5px;
+    font-size: 24px;
+    color: #666;
+    border: 1px solid #909090;
 }
 .filter {
     padding: 10px;
+}
+.filter-tool-bar{
+
+}
+.filter .start-btn {
+    margin-left: 5px;
+    margin-bottom: 10px;
 }
 .pill {
     width: 100%;
     margin: 5px;
     padding: 5px;
-    border: 1px solid #e2e2e2;
     margin-top: 2px;
+}
+.pill span{
+    vertical-align: top;
+}
+.pill span:not(.close-pill)  {
+    display: inline-block;
+    width: 160px;
+    overflow-x: hidden;
+    max-width: 160px;
+    padding: 3px 6px;
+    border-radius: 2px;
+    border-right: 4px solid #75CEEB;
 }
 #header{
     color: #555;
